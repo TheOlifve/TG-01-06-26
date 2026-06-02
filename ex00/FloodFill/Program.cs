@@ -1,6 +1,48 @@
-﻿using System.IO.Pipelines;
+﻿using System.Drawing;
+using System.IO.Pipelines;
 
 namespace FloodFill;
+
+
+class MyStack
+{
+    private int _size;
+    private (int, int)[] _stack;
+    
+    public int Count = 0;
+
+    public MyStack(int size = 64)
+    {
+        _size = size;
+        _stack = new (int, int)[_size]; 
+    }
+
+    public void Push((int, int) value)
+    {
+        if (Count == _size)
+        {
+            (int,int)[] tmpStack =  new (int, int)[_size * 2];
+            
+            for (int i = 0; i < _size; ++i)
+            {
+                tmpStack[i] = _stack[i];
+            }
+
+            _size *= 2;
+            _stack = tmpStack;
+        }
+        _stack[Count] = value;
+        Count++;
+    }
+
+    public (int, int) Pop()
+    {
+        if (Count == 0)
+            throw new InvalidOperationException("Stack is empty");
+        Count--;
+        return _stack[Count];
+    }
+}
 
 class Program
 {
@@ -109,8 +151,8 @@ class Program
         
         if (cols == 0 || rows == 0 || !validX || !validY)
             return;
-        
-        Stack<(int, int)> stack = new Stack<(int, int)>();
+
+        MyStack stack = new MyStack();
         int valueToFill = matrix[coordinates.Item2, coordinates.Item1];
          
         stack.Push((coordinates.Item1, coordinates.Item2));
@@ -160,8 +202,8 @@ class Program
         Console.WriteLine("=========================================================");
         PrintMatrix(matrix, true);
         
-        FloodFillRecursive(matrix, coordinates, 9);
-        // FloodFillInterative(matrix, coordinates, 9);
+        // FloodFillRecursive(matrix, coordinates, 9);
+        FloodFillInterative(matrix, coordinates, 9); 
 
         Console.WriteLine("=========================================================");
         Console.WriteLine("                  STAGE 2: AFTER FILL                    ");

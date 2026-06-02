@@ -15,6 +15,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="df02ed9d-443c-44be-9a53-f369b2bdd3f9" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ex00/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ex00/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FloodFill/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FloodFill/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -28,6 +29,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0,
   &quot;fromUser&quot;: false
@@ -49,7 +51,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "cidr.known.project.marker": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "woutStack",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -112,12 +114,17 @@
       <workItem from="1780299972500" duration="1459000" />
       <workItem from="1780301439652" duration="9516000" />
       <workItem from="1780317569776" duration="2459000" />
+      <workItem from="1780383536055" duration="4373000" />
+      <workItem from="1780416651434" duration="246000" />
+      <workItem from="1780418577595" duration="116000" />
+      <workItem from="1780418998951" duration="1931000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
