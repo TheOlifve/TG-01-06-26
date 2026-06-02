@@ -24,11 +24,6 @@ class Program
                 if (stack.Count != 0 && stack.Pop() != c)
                     return false;
             }
-            else
-            {
-                Console.WriteLine("Invalid input");
-                return false;
-            }
         }
         return (stack.Count == 0);
     }
