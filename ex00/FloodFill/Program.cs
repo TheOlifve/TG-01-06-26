@@ -69,7 +69,7 @@ class Program
         Console.ResetColor();
     }
 
-    static void Fill(int[,] matrix, int x, int y, int valueToFill, int value)
+    static void FillRecursive(int[,] matrix, int x, int y, int valueToFill, int value)
     {
         if (x >= matrix.GetLength(1) || x < 0  ||
                 y >= matrix.GetLength(0) || y < 0  ||
@@ -77,13 +77,13 @@ class Program
             return;
 
         matrix[y, x] = value;
-        Fill(matrix, x + 1, y, valueToFill, value);
-        Fill(matrix, x - 1, y, valueToFill, value);
-        Fill(matrix, x, y + 1, valueToFill, value);
-        Fill(matrix, x, y - 1, valueToFill, value);
+        FillRecursive(matrix, x + 1, y, valueToFill, value);
+        FillRecursive(matrix, x - 1, y, valueToFill, value);
+        FillRecursive(matrix, x, y + 1, valueToFill, value);
+        FillRecursive(matrix, x, y - 1, valueToFill, value);
     }
     
-    static void FloodFill(int[,] matrix, (int, int) coordinates, int value)
+    static void FloodFillRecursive(int[,] matrix, (int, int) coordinates, int value)
     {
         int rows = matrix.GetLength(0);
         int cols = matrix.GetLength(1);
@@ -91,15 +91,49 @@ class Program
         bool validX = coordinates.Item1 <= rows ? (coordinates.Item1 >= 0 ? true : false) : false;
         bool validY = coordinates.Item2 <= rows ? (coordinates.Item2 >= 0 ? true : false) : false;
         
-        if (matrix == null || cols == 0 || rows == 0 || !validX || !validY)
+        if (cols == 0 || rows == 0 || !validX || !validY)
             return;
         
         int valueToFill = matrix[coordinates.Item2, coordinates.Item1];
 
-        Fill(matrix, coordinates.Item1, coordinates.Item2, valueToFill, value);
+        FillRecursive(matrix, coordinates.Item1, coordinates.Item2, valueToFill, value);
     }
+
+    static void FloodFillInterative(int[,] matrix, (int, int) coordinates, int value)
+    {
+        int rows = matrix.GetLength(0);
+        int cols = matrix.GetLength(1);
+        
+        bool validX = coordinates.Item1 <= rows ? (coordinates.Item1 >= 0 ? true : false) : false;
+        bool validY = coordinates.Item2 <= rows ? (coordinates.Item2 >= 0 ? true : false) : false;
+        
+        if (cols == 0 || rows == 0 || !validX || !validY)
+            return;
+        
+        Stack<(int, int)> stack = new Stack<(int, int)>();
+        int valueToFill = matrix[coordinates.Item2, coordinates.Item1];
+         
+        stack.Push((coordinates.Item1, coordinates.Item2));
+        while (stack.Count > 0)
+        {
+            (int, int) coords = stack.Pop();
+            
+            if (coords.Item1 < 0 ||  coords.Item1 >= cols || coords.Item2 < 0 || coords.Item2 >= rows)
+                continue;
+            
+            if (matrix[coords.Item2, coords.Item1] != valueToFill)
+                continue;
+            
+            matrix[coords.Item2, coords.Item1] = value;
+            
+            stack.Push((coords.Item1 + 1, coords.Item2));
+            stack.Push((coords.Item1 - 1, coords.Item2));
+            stack.Push((coords.Item1, coords.Item2 + 1));
+            stack.Push((coords.Item1, coords.Item2 - 1));
+        }
+    } 
     
-    static void Main(string[] args)
+    static void Main()
     {
         int[,] matrix = new int[15, 20]
         {
@@ -126,7 +160,8 @@ class Program
         Console.WriteLine("=========================================================");
         PrintMatrix(matrix, true);
         
-        FloodFill(matrix, coordinates, 9);
+        FloodFillRecursive(matrix, coordinates, 9);
+        // FloodFillInterative(matrix, coordinates, 9);
 
         Console.WriteLine("=========================================================");
         Console.WriteLine("                  STAGE 2: AFTER FILL                    ");
