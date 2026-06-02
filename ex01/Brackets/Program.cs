@@ -2,30 +2,37 @@
 
 class Program
 {
+    static bool Check(char c, char top)
+    {
+        if (top == '(' && c != ')')
+            return false;
+        if (top == '[' && c != ']')
+            return false;
+        if (top == '{' && c != '}')
+            return false;
+        return true;
+    }
+    
     static bool ValidateBrackets(string input)
     {
         if (string.IsNullOrEmpty(input) || input.Length % 2 != 0)
             return false;
         
-        Stack<char> stack = new Stack<char>();
-        Dictionary<char, char> dict = new Dictionary<char, char>
-        {
-            {'{', '}'}, {'[', ']'}, {'(', ')'}
-        };
+        char[] stack = new char[input.Length];
+        int top = 0;
         
         foreach (char c in input)
         {
-            if (dict.ContainsKey(c))
+            if (c == '(' || c == '[' || c == '{')
             {
-                stack.Push(dict[c]);
+                stack[top] = c;
+                top++;
+                continue;
             }
-            else if (dict.ContainsValue(c))
-            {
-                if (stack.Count != 0 && stack.Pop() != c)
-                    return false;
-            }
+            if (top == 0 || !Check(c, stack[--top]))
+                return false;
         }
-        return (stack.Count == 0);
+        return (top == 0);
     }
     
     static void Main(string[] args)
